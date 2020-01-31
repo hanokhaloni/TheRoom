@@ -41,6 +41,9 @@ function readyClicked() {
     open = !open;
     const str = open ? 'open' : 'close'
     const fridge = document.querySelector('.refregirator');
+    const fridgeContent = document.querySelector('.drop-zone');
+
+    fridgeContent.style.opacity = open ? 1 :0;
 
     if (!open) {
         fridge.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
