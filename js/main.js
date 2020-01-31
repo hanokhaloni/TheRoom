@@ -11,37 +11,34 @@ const inventoryItems = [
 ]
 
 function allowDrop(ev) {
-
     ev.preventDefault();
-
-
 }
 
 function drag(ev) {
-    console.log('AAAAA', ev);
-
     ev.dataTransfer.setData("text", ev.target.id);
     ev.target.style.opacity = 0.5;
 }
 
 function drop(ev) {
-
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text");
     const element = document.getElementById(data);
     element.style.opacity = 1;
     ev.target.appendChild(element);
-
-
 }
-
 
 function readyClicked() {
 
     open = !open;
-    const str = open ? 'open' : 'close'
+    // const str = open ? 'open' : 'close'
     const fridge = document.querySelector('.refregirator');
     const fridgeContent = document.querySelector('.drop-zone');
+
+    if (fridge.classList.contains('bounceInRight')) {
+        fridge.classList.remove('animated','bounceInRight');
+        console.log('VBBDFBDFGD');
+        
+    }
 
     fridgeContent.style.opacity = open ? 1 :0;
 
@@ -51,7 +48,7 @@ function readyClicked() {
         fridge.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
     }
 
-    document.getElementById("fridge").src = `./assets/art-deco-refrigerator-${str}.jpg`;
+    document.getElementById("fridge").src = open?'./assets/openedFridge_02.png':'./assets/closedFridge_02.png';
 }
 
 
@@ -78,7 +75,7 @@ function init() {
         const img = document.createElement("img");
 
         img.src = item.src;
-        img.height = 50;
+        img.height = 60;
         img.style.pointerEvents ='none';
         invItem.appendChild(img);
         invItem.className = "inventory-item";

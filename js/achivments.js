@@ -42,23 +42,25 @@ function setNextAchievement() {
     i++;
 }
 
+function removeAchievement() {
+    const acheivementPlaceholder = document.querySelector('.modal-window');
+    acheivementPlaceholder.parentElement.removeChild(acheivementPlaceholder);
+}
+
+
 function createAchievementDiv(achievement) {
     greet = greets[Math.floor(Math.random() * greets.length)];
     animation = animations[Math.floor(Math.random() * animations.length)];
 
-    newAchievementElement = `<div class="modal-window ${animation} animated">` +
-        `` +
-        `<h1>${achievement.Heading} Achievement!</h1>` +
-        `<p>${greet} ${achievement.Paragraph}</p>` +
-        `<div style="font-size: 10em;">${achievement.emoji}</div>` +
-        `</div>`;
+    const newAchievementElement =
+        `<div class="modal-window ${animation} animated" onclick="removeAchievement()">
+        <h1>${achievement.Heading} Achievement!</h1>
+        <p>${greet} ${achievement.Paragraph}</p>
+        <div style="font-size: 10em;">${achievement.emoji}</div>
+        </div>`;
 
+    const acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
     acheivementPlaceholder.innerHTML = newAchievementElement;
 }
 
-window.addEventListener('load', function () {
 
-
-    acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
-
-})
