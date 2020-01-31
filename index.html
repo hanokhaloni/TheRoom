@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>THE ROOM GGJ2020</title>
-    <script src="main.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <script src="js/main.js"></script>
+    <script src="js/achivments.js"></script>
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/styles.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 </head>
@@ -17,8 +19,9 @@
     <!-- <header>
         <h1>THE rOOm</h1>
     </header> -->
+    <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Click me</button>
+    <div id="acheivementPlaceholder"></div>
 
-    
     <div class="container">
         <div class="assets ">
             <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">

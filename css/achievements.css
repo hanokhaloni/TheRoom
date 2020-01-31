@@ -1,4 +1,4 @@
-* {
+/* * {
     padding: 0;
     margin: 0;
 }
@@ -7,29 +7,35 @@ canvas {
     background: #eee;
     display: block;
     margin: 0 auto;
-}
+} */
 
-.model-window-hidden {
+/* .model-window-hidden {
     visibility: hidden;
     opacity: 0;
+} */
+
+#acheivementPlaceholder {
+    position: absolute;
+    z-index: 999;
+    top: 20px;
+    /* justify-content: center; */
+    width: 100%;
 }
 
 .modal-window {
-    background-color: rgba(118, 88, 88, 0.25);
+    font-family: monospace;
+    background-color: rgba(75, 52, 132, 0.48);
+    /* font-size: 15px; */
     border-radius: 20px;
-    /* top: 0; */
-    /* right: 0; */
-    /* bottom: 0; */
-    /* left: 0; */
-    z-index: 999;
+    border-radius: 20px;
     pointer-events: none;
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    }
-  
+}
+
 
 .modal-close {
     color: #aaa;
