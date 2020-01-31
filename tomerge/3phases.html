@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="setNextStage()">Click me</button>
+    <canvas id="myCanvas" width="480" height="320"></canvas>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        const stage =  Object.freeze({
+            WELCOME:{name:'welcome', draw:function() {drawWelcome() }},
+            BEGIN:  {name:'begin'  , draw:function() {drawBegin()   }},
+            STAGE1: {name:'stage1' , draw:function() {drawStage1()  }},
+            STAGE2: {name:'stage2' , draw:function() {drawStage2()  }},
+            STAGE3: {name:'stage3' , draw:function() {drawStage3()  }},           
+            END:    {name:'end'    , draw:function() {drawEnd()     }},            
+        });
+       
+       const stagesOrder = [stage.WELCOME, stage.BEGIN, stage.STAGE1, stage.STAGE2, stage.STAGE3, stage.END];
+        var currentStageIndex = 0;
+        var currentStage = stagesOrder[currentStageIndex]; 
+
+        function setNextStage() {
+            currentStageIndex++;
+            if (currentStageIndex >= stagesOrder.length) {
+                currentStageIndex = 0;
+            }
+            currentStage = stagesOrder[currentStageIndex];
+        }
+
+        function drawWelcome() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Impact";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText("WELCOME", 8, 20);
+
+        }
+
+        function drawBegin() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Impact";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText("BEGIN", 8, 20);
+ 
+        }
+
+        function drawStage1() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Impact";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText("STAGE1: Order the fridge!", 8, 20);
+ 
+        }
+
+        function drawStage2() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Impact";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText("STAGE2: Mix the fridge!", 8, 20);
+
+        }
+
+        function drawStage3() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Impact";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText("STAGE3: Reorder the fridge!", 8, 20);
+           
+        }
+
+        function drawEnd() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Impact";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText("END", 8, 20);
+           
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            currentStage.draw();
+            console.log("Stage:"+stage.name);
+            requestAnimationFrame(draw);
+        }
+
+
+        draw();
+        //var interval = setInterval(draw, 10);
+    </script>
+
+</body>
+
+</html>
