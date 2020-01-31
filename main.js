@@ -1,21 +1,54 @@
 
 
+let open = true;
+
+const inventoryItems = [
+    { id: '1', name: 'milk', src: './assets/milk.png' },
+    { id: '2', name: 'pitcher', src: './assets/pitcher.png' },
+    { id: '3', name: 'eggs', src: './assets/eggs_01.png' },
+    { id: '4', name: 'milk', src: './assets/milk.png' },
+    { id: '5', name: 'milk', src: './assets/milk.png' },
+]
 
 function allowDrop(ev) {
 
     ev.preventDefault();
+
+
 }
 
 function drag(ev) {
+    console.log('AAAAA', ev);
 
     ev.dataTransfer.setData("text", ev.target.id);
+    ev.target.style.opacity = 0.5;
 }
 
 function drop(ev) {
 
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+    const data = ev.dataTransfer.getData("text");
+    const element = document.getElementById(data);
+    element.style.opacity = 1;
+    ev.target.appendChild(element);
+
+
+}
+
+
+function readyClicked() {
+
+    open = !open;
+    const str = open ? 'open' : 'close'
+    const fridge = document.querySelector('.refregirator');
+
+    if (!open) {
+        fridge.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
+    } else {
+        fridge.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
+    }
+
+    document.getElementById("fridge").src = `./assets/art-deco-refrigerator-${str}.jpg`;
 }
 
 
@@ -35,6 +68,29 @@ function init() {
     }
 
     item.parentNode.removeChild(item);
+
+    const inventoryElement = document.querySelector('.assets');
+    inventoryItems.forEach(item => {
+        const invItem = document.createElement("div");
+        const img = document.createElement("img");
+
+        img.src = item.src;
+        img.height = 50;
+        img.style.pointerEvents ='none';
+        invItem.appendChild(img);
+        invItem.className = "inventory-item";
+        invItem.draggable = true;
+        invItem.id = item.id;
+        invItem.ondragexit = (ev) =>{
+            ev.target.style.opacity = 1;
+        }
+        invItem.ondragstart = (ev) => {
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.target.style.opacity = 0.5;
+        }
+        inventoryElement.appendChild(invItem);
+
+    })
 
 }
 

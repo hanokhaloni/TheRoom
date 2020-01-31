@@ -8,6 +8,8 @@
     <title>THE ROOM GGJ2020</title>
     <script src="main.js"></script>
     <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 </head>
 
 <body onload="init()">
@@ -16,27 +18,29 @@
         <h1>THE rOOm</h1>
     </header> -->
 
-
+    
     <div class="container">
+        <div class="assets ">
+            <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
+            <img id="drag1" class="inventory-item" src="./assets/pitcher.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
+            <img id="drag1" class="inventory-item" src="./assets/eggs_01.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
+            <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
+            <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)"> -->
+        </div>
+        <button class="ready-btn" onclick="readyClicked()">READY</button>
+        <!-- <div class="room"> -->
 
-        <div class="room">
-            <div class="assets">
-                <img id="drag1" src="./assets/milk.png" draggable="true" alt="" height="100" ondragstart="drag(event)">
-            </div>
-
+        <div class="refregirator ">
             
+            <img id="fridge" src="./assets/art-deco-refrigerator-open.jpg" width="50%" alt="">
 
-            <div class="refregirator">
-                <button style="position: absolute;top:100px">READY</button>
-                <img src="./assets/art-deco-refrigerator-04.jpg" width="50%" alt="">
+            <div id="dropzone" class="drop-zone">
+                <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)">
 
-                <div id="dropzone" class="drop-zone">
-                        <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)">
-                            
-                        </div>
-                    </div>
+                </div>
             </div>
         </div>
+        <!-- </div> -->
 
         <!-- <canvas id="main-canvas" class="canvas"></canvas> -->
     </div>
