@@ -63,9 +63,8 @@ function setNextAchievement() {
     if (i >= achivementsAsArray.length) {
         i = 0;
     }
-    createAchievementDiv(achivementsAsArray[i]);
-    givenAchivements.push(achivementsAsArray[i]);
 
+    createAchievementDiv(achivementsAsArray[i]);
 }
 
 function removeAchievement() {
@@ -75,6 +74,15 @@ function removeAchievement() {
 
 
 function createAchievementDiv(achievement) {
+
+    const curachievement = givenAchivements.find(a => a.Heading === achievement.Heading);
+    if (curachievement) {
+        console.log(`Skipping achievments ${achievement.Heading} - it was already given...`)
+        return;
+    }
+
+    givenAchivements.push(achievement);
+    
     greet = greets[Math.floor(Math.random() * greets.length)];
     animation = animations[Math.floor(Math.random() * animations.length)];
 
