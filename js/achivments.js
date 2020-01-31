@@ -3,13 +3,13 @@ const animations = ['jello', 'wobble', 'tada', 'swing'];
 var i = 0;
 let acheivementPlaceholder;
 
-let sec10interval; 
+let sec10interval;
 let sec30interval;
 let sec50interval;
 let sec60interval;
 let sec90interval;
 
-let givenAchivements=[];
+let givenAchivements = [];
 
 const achievement = {
     READABILITY: { Heading: 'Read ability', Paragraph: 'You have unlocked to ability to read an achievement', emoji: '✉' },
@@ -38,11 +38,11 @@ const achievement = {
 };
 
 function setTimeoutAchievements() {
-    sec10interval = setTimeout(function(){createAchievementDiv(achievement.CRAP)},10000); 
-    sec30interval = setTimeout(function(){createAchievementDiv(achievement.SEC_30)},30000);
-    sec50interval = setTimeout(function(){createAchievementDiv(achievement.SMILE)},50000);
-    sec60interval = setTimeout(function(){createAchievementDiv(achievement.SEC_60)},60000);
-    sec90interval = setTimeout(function(){createAchievementDiv(achievement.SEC_90)},90000);
+    sec10interval = setTimeout(function () { createAchievementDiv(achievement.CRAP) }, 10000);
+    sec30interval = setTimeout(function () { createAchievementDiv(achievement.SEC_30) }, 30000);
+    sec50interval = setTimeout(function () { createAchievementDiv(achievement.SMILE) }, 50000);
+    sec60interval = setTimeout(function () { createAchievementDiv(achievement.SEC_60) }, 60000);
+    sec90interval = setTimeout(function () { createAchievementDiv(achievement.SEC_90) }, 90000);
     givenAchivements = [];
 }
 
@@ -52,7 +52,7 @@ function stopTimeoutAchievements() {
     clearTimeout(sec50interval);
     clearTimeout(sec60interval);
     clearTimeout(sec90interval);
-    
+
 }
 
 var achivementsAsArray = [achievement.BEGIN, achievement.DRAG1, achievement.DRAG2, achievement.END_0, achievement.END_20];
@@ -82,7 +82,7 @@ function createAchievementDiv(achievement) {
     }
 
     givenAchivements.push(achievement);
-    
+
     greet = greets[Math.floor(Math.random() * greets.length)];
     animation = animations[Math.floor(Math.random() * animations.length)];
 
@@ -97,4 +97,19 @@ function createAchievementDiv(achievement) {
     acheivementPlaceholder.innerHTML = newAchievementElement;
 }
 
+function createAchievementCertificate() {
+    var certificate = '';
+    certificate += '<div>';
+    certificate += '<h1> For player X </h1>';
+    certificate += '<h2> Successfully completed a game </h2>';
+    certificate += '<h2> For player X </h2>';
+    certificate += '<ul>';
+    givenAchievements.forEach(element => {
+        certificate += `<li>${element.emoji} - ${element.Heading}</li>`;
+    });
+    certificate += '</ul>';
+
+    certificate += '</div>';
+
+}
 
