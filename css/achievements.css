@@ -16,15 +16,22 @@ canvas {
 
 #acheivementPlaceholder {
     position: absolute;
+    /* top: 50px; */
+    /* margin: auto; */
+    margin-top: 170px;
     z-index: 999;
     top: 20px;
+    /* padding: 20px; */
+    /* margin: 50%; */
     /* justify-content: center; */
-    width: 100%;
+    width: 50%;
+    margin-left: 25%;
 }
 
 .modal-window {
     font-family: monospace;
-    background-color: rgba(75, 52, 132, 0.48);
+    /* background-color: rgba(75, 52, 132, 0.48); */
+    background-color: wheat;
     /* font-size: 15px; */
     border-radius: 20px;
     border-radius: 20px;

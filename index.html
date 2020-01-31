@@ -19,7 +19,7 @@
     <!-- <header>
         <h1>THE rOOm</h1>
     </header> -->
-    <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Click me</button>
+    <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Get Achievement!!</button>
     <div id="acheivementPlaceholder"></div>
 
     <div class="container">
@@ -30,18 +30,35 @@
             <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
             <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)"> -->
         </div>
-        <button class="ready-btn" onclick="readyClicked()">READY</button>
+
+        <div class="instructions">
+            <h2>Place all the groceries in the fridge </h2>
+        </div>
+
+        <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
         <!-- <div class="room"> -->
 
-        <div class="refregirator animated bounceInRight ">
-            
-            <img id="fridge" src="./assets/openedFridge_02.png"  alt="">
 
-            <div id="dropzone" class="drop-zone">
-                <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+        <div class="refregirator animated bounceInRight ">
+
+            <img id="fridge" src="./assets/openedFridge_02.png" alt="" style="margin-left: 200px">
+
+            <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+            </div>
+
+            <div class="drop-zones-container">
+                <div id="dropzone" class="drop-zone">
 
                 </div>
+
+                <!--  <div id="dropzone2" style="transform: rotate(25deg) skewX(50deg) translate(50px, -50px);"
+                    class="drop-zone">
+
+                </div> -->
             </div>
+
         </div>
         <!-- </div> -->
 

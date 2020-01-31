@@ -6,6 +6,7 @@ html {
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .container {
@@ -43,8 +44,14 @@ body {
     grid-gap: 5px;
 }
 
-.drop-zone {
+.drop-zones-container {
     position: absolute;
+    top: 225px;
+    display: flex;
+}
+
+.drop-zone {
+    /* position: absolute; */
     z-index: 2;
     /* right: 30px; */
     width: 100%;
@@ -55,8 +62,8 @@ body {
     /* justify-content: center; */
     width: 200px;
     height: 400px;
-    margin-left: -100px;
-    top: 285px;
+    /* margin-left: -100px; */
+    
     /* left: 100px; */
     transform: rotate(-2deg);
 }
@@ -80,7 +87,18 @@ body {
 }
 
 .refregirator {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
         /* justify-content: center; */
+}
+
+.instructions {
+    font-weight: 100;
+    font-family: fantasy;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: white;
 }
