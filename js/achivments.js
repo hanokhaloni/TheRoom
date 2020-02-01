@@ -102,6 +102,8 @@ function createAchievementDiv(achievement) {
     const acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
     playsound.play();
     acheivementPlaceholder.innerHTML = newAchievementElement;
+
+    return newAchievementElement;
 }
 
 function createAchievementCertificate() {
