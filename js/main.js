@@ -4,8 +4,15 @@ let open = true;
 let dropped = 0;
 let fridgePlaceholders = [];
 let enterance = false;
-
+let rearngeState;
+let needToFill;
 let readyForRearange = false;
+
+
+let spotsBeforeMess = [];
+let spotsAfterMess = [];
+
+
 const inventoryItems = [
     { id: 1, name: 'buttermilk', src: './assets/Elements/buttermilk.png' },
     { id: 2, name: 'cheese', src: './assets/Elements/cheese.png' },
@@ -35,51 +42,101 @@ function drag(ev) {
 
 function drop(ev) {
     console.log('DROP ', ev);
-    createAchievementDiv(achievement.DRAG2);
-    sounds.WOOSH.play();
-    sounds.DARKSHAKE.play();
-    
+    createAchievementDiv(achievement.DRAG2)
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
     const itemElement = document.getElementById(invId);
     const spot = ev.target;
+    const readyBtn = document.querySelector('.ready-btn')
     // debugger;
     itemElement.style.opacity = 1;
     itemElement.placed = true;
     // spot.appendChild(itemElement);
     dropped++;
 
-
+    needToFill = Math.min(inventoryItems.length, 9)
     document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
-    document.querySelector('.ready-btn').style.opacity = dropped >= 9 ? 1 : 0; 
-    
+    readyBtn.style.opacity = (dropped === needToFill) && !rearngeState ? 1 : 0;
+
     const invItem = inventoryItems.find(a => a.id.toString() === invId.toString())
     const placeHolder = fridgePlaceholders.find(placeHolder => placeHolder.id.toString() === ev.target.id.toString());
 
     if (placeHolder && placeHolder.element) {
-            placeHolder.inventory = invItem;
+        placeHolder.inventory = invItem;
+        placeHolder.element.appendChild(itemElement);
 
-    placeHolder.element.appendChild(itemElement);
+        if (!readyForRearange) {
 
-    if (!readyForRearange) {
+            localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
+            spotsBeforeMess = JSON.parse(JSON.stringify(fridgePlaceholders));
+        } else {
 
-        localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
-    } else {
-        dropped = 0;
-        itemElement.style.transform = `translateX(${0}px) rotate(${0}deg)`;
-        localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
+            if (!rearngeState) {
+                rearngeState = true;
+                dropped = 0;
+
+            } else {
+
+
+                if (dropped >= (needToFill - 1)) {
+                    console.log('AAAEND GAA', dropped);
+                    readyBtn.style.opacity = 1;
+                    readyBtn.innerHTML = 'READY';
+                    readyBtn.onclick = () => {
+                        calculateScore();
+                    }
+                }
+            }
+
+            itemElement.style.transform = `translateX(${0}px) rotate(${0}deg)`;
+            localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
+            spotsAfterMess = JSON.parse(JSON.stringify(fridgePlaceholders));
+        }
     }
-}
 
 }
 
+function calculateScore() {
+    console.log('calculateScore FINAL!!!!!!!');
+    document.querySelector('.ready-btn').style.opacity = 0;
+
+    const before = spotsBeforeMess.map(a => a.inventory ? a.inventory.id : -1);
+    const after = spotsAfterMess.map(a => a.inventory ? a.inventory.id : -1);
+
+    let score = 0;
+    before.forEach((a, index) => {
+        if (a === after[index]) {
+            if (a > -1) { score++; }
+        }
+    });
+    console.log('before = ', before);
+    console.log('after = ', after);
+    console.log('SCORE = ', score);
+
+    if (score >= 9) {
+        createAchievementDiv(achievement.END_100);
+    } else if (score >= 8) {
+        createAchievementDiv(achievement.END_80);
+    } else if (score >= 5) {
+        createAchievementDiv(achievement.END_50);
+    } else if (score >= 3) {
+        createAchievementDiv(achievement.END_30);
+    } else if (score >= 1) {
+        createAchievementDiv(achievement.END_20);
+    }  else {
+        createAchievementDiv(achievement.END_0);
+    }
+    
+    setTimeout(() => {
+        createAchievementCertificate()
+    }, 2000);
+}
 
 function getOpacity() {
     return 0;
 }
 
-enterance = false
 function readyClicked() {
     createAchievementDiv(achievement.READABILITY);
     createAchievementDiv(achievement.READY);
@@ -90,18 +147,14 @@ function readyClicked() {
     const fridge = document.querySelector('.refregirator');
     const fridgeImg = document.querySelector('#fridge');
 
-
     /* if (!enterance && fridge.classList.contains('bounceInRight')) {
         enterance = true;
         fridge.classList.remove('animated', 'bounceInRight');
     } */
 
-    dropZonesContainer.style.opacity = open ? 1 : 0;
-
     if (!open) {
         createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
-        sounds.DARKSHAKE.play();
         // fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         const darkDiv = document.querySelector('.dark');
@@ -119,12 +172,14 @@ function readyClicked() {
     } else {
         createAchievementDiv(achievement.STAGE3);
         sounds.Door1.play();
-        sounds.DARKSHAKE.pause();
         // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
         fridgeImg.classList.add('animated', 'bounce');
         const darkDiv = document.querySelector('.dark');
         darkDiv.style.visibility = 'hidden';
+
+        fridgePlaceholders.forEach(a => a.inventory = null);
+        document.querySelector('.ready-btn').style.opacity = 0;
 
         if (readyForRearange) {
 
@@ -146,10 +201,9 @@ function readyClicked() {
 
         }, 1000);
 
-        
     }
 
-    //fridgeImg.src = open ? './assets/openedFridge_02.png' : './assets/closedFridge_02.png';
+    // fridgeImg.src = open ? './assets/fridge-open.png' : './assets/fridge-close.png';
 }
 
 
@@ -217,9 +271,6 @@ function init() {
             ev.target.style.opacity = 1;
         }
         invItem.ondragstart = (ev) => {
-
-            console.log('DRAG START!!!!', item.id);
-
             ev.dataTransfer.setData("Text", item.id);
             ev.target.style.opacity = 0.5;
         }
