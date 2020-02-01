@@ -32,7 +32,8 @@ function drag(ev) {
 }
 
 function drop(ev) {
-    createAchievementDiv(achievement.DRAG2)
+    createAchievementDiv(achievement.DRAG2);
+    sounds.WOOSH.play();
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
@@ -65,10 +66,7 @@ function drop(ev) {
                 dropped = 0;
 
             } else {
-
-
                 if (dropped >= (needToFill - 1)) {
-                    console.log('AAAEND GAA', dropped);
                     readyBtn.style.opacity = 1;
                     readyBtn.innerHTML = 'READY';
                     readyBtn.onclick = () => {
@@ -129,7 +127,8 @@ function readyClicked() {
         document.querySelector(".assets").style.visibility = "hidden";
         createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
-
+        sounds.DARKSHAKE.play();
+        // fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         const darkDiv = document.querySelector('.dark');
         darkDiv.style.visibility = 'visible';
@@ -141,6 +140,8 @@ function readyClicked() {
     } else {
         createAchievementDiv(achievement.STAGE3);
         sounds.Door1.play();
+        sounds.DARKSHAKE.pause();
+        // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
         fridgeImg.classList.add('animated', 'bounce');
         const darkDiv = document.querySelector('.dark');
