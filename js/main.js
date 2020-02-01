@@ -65,11 +65,13 @@ function readyClicked() {
     dropZonesContainer.style.opacity = open ? 1 : 0;
 
     if (!open) {
+        sounds.Door3.play();
         fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         document.querySelector('.ready-btn').innerHTML = "STOP";
         readyForRearange = true;
     } else {
+        sounds.Door1.play();
         fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
 

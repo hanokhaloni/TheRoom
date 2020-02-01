@@ -7,23 +7,20 @@ var music;
 var lastTime;
 function init() {
     music = {
-        overworld: new Audio('sounds/aboveground_bgm.ogg'),
-        underground: new Audio('sounds/underground_bgm.ogg'),
-        clear: new Audio('sounds/stage_clear.wav'),
-        death: new Audio('sounds/mariodie.wav')
+        //overworld: new Audio('sounds/aboveground_bgm.ogg'),
+
     };
     sounds = {
-        smallJump: new Audio('sounds/jump-small.wav'),
-        bigJump: new Audio('sounds/jump-super.wav'),
-        breakBlock: new Audio('sounds/breakblock.wav'),
-        bump: new Audio('sounds/bump.wav'),
-        coin: new Audio('sounds/coin.wav'),
-        fireball: new Audio('sounds/fireball.wav'),
-        flagpole: new Audio('sounds/flagpole.wav'),
-        kick: new Audio('sounds/kick.wav'),
-        pipe: new Audio('sounds/pipe.wav'),
-        itemAppear: new Audio('sounds/itemAppear.wav'),
-        powerup: new Audio('sounds/powerup.wav'),
-        stomp: new Audio('sounds/stomp.wav')
+        Achievment1: new Audio('sounds/Acheivment_1.ogg'),
+        Achievment2: new Audio('sounds/Acheivment_2.ogg'),
+        Achievment3: new Audio('sounds/Acheivment_3.ogg'),
+        Door1: new Audio('sounds/Door_1.ogg'),
+        Door2: new Audio('sounds/Door_2.ogg'),
+        Door3: new Audio('sounds/Door_3.ogg'),
+
     };
+
+    console.log('Sounds inittialized!');
 }
+
+init();

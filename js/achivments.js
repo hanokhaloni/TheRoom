@@ -1,5 +1,7 @@
 const greets = ['WOW!', 'AMAZING!', 'OMG!', 'Oh My God!!', 'You are AMAZING!', 'That is great.', 'YAY!', 'WOOHOO!'];
 const animations = ['jello', 'wobble', 'tada', 'swing'];
+const achievementPlaysounds = [sounds.Achievment1,sounds.Achievment2,sounds.Achievment3];
+
 var i = 0;
 let acheivementPlaceholder;
 
@@ -85,6 +87,7 @@ function createAchievementDiv(achievement) {
 
     greet = greets[Math.floor(Math.random() * greets.length)];
     animation = animations[Math.floor(Math.random() * animations.length)];
+    playsound = achievementPlaysounds[Math.floor(Math.random() * achievementPlaysounds.length)];
 
     const newAchievementElement =
         `<div class="modal-window ${animation} animated" onclick="removeAchievement()">
@@ -94,6 +97,7 @@ function createAchievementDiv(achievement) {
         </div>`;
 
     const acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
+    playsound.play();
     acheivementPlaceholder.innerHTML = newAchievementElement;
 }
 
@@ -108,7 +112,6 @@ function createAchievementCertificate() {
         certificate += `<li>${element.emoji} - ${element.Heading}</li>`;
     });
     certificate += '</ul>';
-
     certificate += '</div>';
 
 }
