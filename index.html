@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>THE ROOM GGJ2020</title>
+    <script src="js/sound.js"></script>
     <script src="js/main.js"></script>
     <script src="js/achivments.js"></script>
+
     <link rel="stylesheet" href="css/achievements.css">
     <link rel="stylesheet" href="css/styles.css">
 
@@ -22,42 +24,50 @@
     </div> -->
 
 
-    <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Get Achievement!!</button>
+    <div style="position: absolute; z-index:999">
+        <button onclick="setNextAchievement()">Achievement!</button>
+        <button onclick="createAchievementCertificate()">Certificate!!</button>
+
+    </div>
+
+
     <div id="acheivementPlaceholder"></div>
-    
+
     <div style="visibility:hidden" class="dark animated flash infinite"></div>
     <div class="container">
 
-            
+        <div class="container" onmousedown="WhichButton(event)">
 
-        <div class="assets ">
-            <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
+
+
+            <div class="assets ">
+                <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
             <img id="drag1" class="inventory-item" src="./assets/pitcher.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
             <img id="drag1" class="inventory-item" src="./assets/eggs_01.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
             <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
             <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)"> -->
-        </div>
-
-        <div class="instructions">
-            <h2>Place all the groceries in the fridge </h2>
-        </div>
-
-        <div class="refregirator">
-                <div style="position: absolute;z-index:9999">
-                        <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
-                    </div>
-            <img id="fridge" src="./assets/fridge-open.png" alt="" style="margin-left: 200px">
-
-            <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-            <div class="drop-zones-container">
-                <div class="mess-zone" style="position: absolute; bottom: 200px;z-index:9"></div>
-                <div id="dropzone" class="drop-zone"></div>
-
             </div>
 
+            <div class="instructions">
+                <h2>Place all the groceries in the fridge </h2>
+            </div>
+
+            <div class="refregirator">
+                <div style="position: absolute;z-index:9999">
+                    <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
+                </div>
+                <img id="fridge" src="./assets/fridge-open.png" alt="" style="margin-left: 200px">
+
+                <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+                <div class="drop-zones-container">
+                    <div class="mess-zone" style="position: absolute; bottom: 200px;z-index:9"></div>
+                    <div id="dropzone" class="drop-zone"></div>
+
+                </div>
+
+            </div>
         </div>
-    </div>
 
     </div>
 </body>

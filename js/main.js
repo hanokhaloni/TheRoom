@@ -30,10 +30,12 @@ function drag(ev) {
     ev.preventDefault();
     ev.dataTransfer.setData("Text", ev.target.id);
     ev.target.style.opacity = 0.5;
+    createAchievementDiv(achievement.DRAG1)
 }
 
 function drop(ev) {
     console.log('DROP ', ev);
+    createAchievementDiv(achievement.DRAG2)
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
@@ -73,6 +75,8 @@ function getOpacity() {
 
 
 function readyClicked() {
+    createAchievementDiv(achievement.READABILITY);
+    createAchievementDiv(achievement.READY);
 
     open = !open;
     // const str = open ? 'open' : 'close'
@@ -86,6 +90,8 @@ function readyClicked() {
     } */
 
     if (!open) {
+        createAchievementDiv(achievement.STAGE2);
+        sounds.Door3.play();
         // fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         const darkDiv = document.querySelector('.dark');
@@ -101,6 +107,8 @@ function readyClicked() {
         readyForRearange = true;
         fridgeImg.src = './assets/fridge-close.png';
     } else {
+        createAchievementDiv(achievement.STAGE3);
+        sounds.Door1.play();
         // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
         fridgeImg.classList.add('animated', 'bounce');
@@ -135,9 +143,29 @@ function readyClicked() {
     // fridgeImg.src = open ? './assets/fridge-open.png' : './assets/fridge-close.png';
 }
 
+
+window.onbeforeunload = function (e) {
+    createAchievementDiv(achievement.FIXER);
+};
+
+function WhichButton(event) {
+    if (event.button == 0) {
+        createAchievementDiv(achievement.LEFTCLICK);
+    }
+
+    else if (event.button == 2) {
+        createAchievementDiv(achievement.RIGHTCLICK);
+    }
+
+    else if (event.button == 1) {
+        createAchievementDiv(achievement.MIDDLECLICK);
+    }
+}
+
 function init() {
-    //TODO UNCOMMMENT!!!!!!!!!
-    // setTimeoutAchievements();
+    setTimeoutAchievements();
+
+    createAchievementDiv(achievement.READABILITY);
 
     const dropzone = document.querySelector('#dropzone');
     const item = document.getElementById('dpz-item');
