@@ -1,4 +1,4 @@
-const greets = ['WOW!', 'AMAZING!', 'OMG!', 'Oh My God!!', 'You are AMAZING!', 'That is great.', 'YAY!', 'WOOHOO!'];
+const greets = ['WOW!', 'AMAZING!', 'OMG!', 'Oh My God!!', 'You are the best!', 'That is great.', 'YAY!', 'WOOHOO!','Tada!'];
 const animations = ['jello', 'wobble', 'tada', 'swing'];
 const achievementPlaysounds = [sounds.Achievment1,sounds.Achievment2,sounds.Achievment3];
 
