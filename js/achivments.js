@@ -116,7 +116,7 @@ function createAchievementCertificate() {
     certificate += '</ul>';
     certificate += '</div>';
     const acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
-    sounds.Achievment1.play();
+    sounds.WOWCROWD.play();
     acheivementPlaceholder.innerHTML = certificate;
 }
 

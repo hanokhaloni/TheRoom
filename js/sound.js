@@ -17,6 +17,7 @@ function init() {
         Door1: new Audio('sounds/Door_1.ogg'),
         Door2: new Audio('sounds/Door_2.ogg'),
         Door3: new Audio('sounds/Door_3.ogg'),
+        WOWCROWD: new Audio('sounds/437645__dersuperanton__crowd-wow-surprise-people.wav')
 
     };
 
