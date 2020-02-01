@@ -24,10 +24,16 @@
     </div> -->
 
 
-    <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Get Achievement!!</button>
+    <div style="position: absolute; z-index:999">
+        <button onclick="setNextAchievement()">Achievement!</button>
+        <button onclick="createAchievementCertificate()">Certificate!!</button>
+        
+    </div>
+    
+    
     <div id="acheivementPlaceholder"></div>
 
-    <div class="container">
+    <div class="container" onmousedown="WhichButton(event)">
 
         <div style="position: absolute;z-index:9999">
             <button class="ready-btn" onclick="readyClicked()">REPAIR</button>

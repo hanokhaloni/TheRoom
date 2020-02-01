@@ -15,10 +15,12 @@ let givenAchivements = [];
 
 const achievement = {
     READABILITY: { Heading: 'Read ability', Paragraph: 'You have unlocked to ability to read an achievement', emoji: '✉' },
+    READY: { Heading: 'Ready', Paragraph: 'You have unlocked to ability to be ready', emoji: '👍'},
     LEFTCLICK: { Heading: 'LeftClick', Paragraph: 'YAY! You can click the left click!', emoji: '👆' },
-    RIGHTCLICK: { Heading: 'Left mouse button up', Paragraph: 'You have mastered the art of raising your finger from the left mouse button', emoji: '👈' },
+    RIGHTCLICK: { Heading: 'RightClick', Paragraph: 'You have mastered the art of raising your finger from the right mouse button', emoji: '👈' },
+    MIDDLECLICK: { Heading: 'Middle man', Paragraph: 'You have mastered the art of raising your finger from the middle wheel mouse button', emoji: '☸' },
     DRAG1: { Heading: 'Oh the DRAG', Paragraph: 'You actually managed to drag an item', emoji: '↖' },
-    DRAG2: { Heading: 'Oh the DRAG 2', Paragraph: 'You actually managed to drag an item into the fridge', emoji: '↙' },
+    DRAG2: { Heading: 'Oh the DROP', Paragraph: 'You actually managed to drop an item into the fridge', emoji: '↙' },
     ENTEPRENUR: { Heading: 'Enteprenur', Paragraph: 'You managed to click the start button', emoji: '🦄' },
     SMILE: { Heading: 'Y so serious?', Paragraph: 'You were smiling!', emoji: '😆' },
     STAGE2: { Heading: 'MAKE SOME NOIZ', Paragraph: 'You started stage 2 of the game.', emoji: '🔊' },
@@ -103,16 +105,18 @@ function createAchievementDiv(achievement) {
 
 function createAchievementCertificate() {
     var certificate = '';
-    certificate += '<div>';
+    certificate += '<div class="modal-window fadeInDownBig animated" onclick="removeAchievement()">';
     certificate += '<h1> For player X </h1>';
     certificate += '<h2> Successfully completed a game </h2>';
-    certificate += '<h2> For player X </h2>';
+    certificate += '<h2> With the following achievements: </h2>';
     certificate += '<ul>';
-    givenAchievements.forEach(element => {
+    givenAchivements.forEach(element => {
         certificate += `<li>${element.emoji} - ${element.Heading}</li>`;
     });
     certificate += '</ul>';
     certificate += '</div>';
-
+    const acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
+    sounds.Achievment1.play();
+    acheivementPlaceholder.innerHTML = certificate;
 }
 

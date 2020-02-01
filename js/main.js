@@ -24,10 +24,12 @@ function drag(ev) {
     ev.preventDefault();
     ev.dataTransfer.setData("Text", ev.target.id);
     ev.target.style.opacity = 0.5;
+    createAchievementDiv(achievement.DRAG1)
 }
 
 function drop(ev) {
     console.log('DROP ', ev);
+    createAchievementDiv(achievement.DRAG2)
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
@@ -38,7 +40,7 @@ function drop(ev) {
     // spot.appendChild(itemElement);
     dropped++;
 
- 
+
     document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
     document.querySelector('.ready-btn').style.opacity = dropped >= inventoryItems.length ? 1 : 0;
 
@@ -46,11 +48,11 @@ function drop(ev) {
     const placeHolder = fridgePlaceholders.find(placeHolder => placeHolder.id.toString() === ev.target.id.toString());
 
     placeHolder.inventory = invItem;
-    
+
     placeHolder.element.appendChild(itemElement);
 
     if (!readyForRearange) {
-        
+
         localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
     } else {
         dropped = 0;
@@ -64,6 +66,8 @@ function getOpacity() {
 
 enterance = false
 function readyClicked() {
+    createAchievementDiv(achievement.READABILITY);
+    createAchievementDiv(achievement.READY);
 
     open = !open;
     // const str = open ? 'open' : 'close'
@@ -80,12 +84,14 @@ function readyClicked() {
     dropZonesContainer.style.opacity = open ? 1 : 0;
 
     if (!open) {
+        createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
         fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         document.querySelector('.ready-btn').innerHTML = "STOP";
         readyForRearange = true;
     } else {
+        createAchievementDiv(achievement.STAGE3);
         sounds.Door1.play();
         fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
@@ -108,9 +114,28 @@ function readyClicked() {
     fridgeImg.src = open ? './assets/openedFridge_02.png' : './assets/closedFridge_02.png';
 }
 
+
+window.onbeforeunload = function (e) {
+    createAchievementDiv(achievement.FIXER);
+};
+
+function WhichButton(event) {
+    if (event.button == 0) {
+        createAchievementDiv(achievement.LEFTCLICK);
+    }
+
+    else if (event.button == 2) {
+        createAchievementDiv(achievement.RIGHTCLICK);
+    }
+
+    else if (event.button == 1) {
+        createAchievementDiv(achievement.MIDDLECLICK);
+    }
+}
+
 function init() {
-    //TODO UNCOMMMENT!!!!!!!!!
-    // setTimeoutAchievements();
+    setTimeoutAchievements();
+
 
     const dropzone = document.querySelector('#dropzone');
     const item = document.getElementById('dpz-item');
@@ -149,13 +174,13 @@ function init() {
         invItem.id = item.id;
         // invItem.innerHTML = item.id;
         invItem.ondragexit = (ev) => {
-            
+
             ev.target.style.opacity = 1;
         }
         invItem.ondragstart = (ev) => {
 
-            console.log('DRAG START!!!!',item.id);
-            
+            console.log('DRAG START!!!!', item.id);
+
             ev.dataTransfer.setData("Text", item.id);
             ev.target.style.opacity = 0.5;
         }
