@@ -34,7 +34,7 @@ const achievement = {
     END_30: { Heading: 'PULL!', Paragraph: 'You ordered 30% of the fridge', emoji: '🙄' },
     END_20: { Heading: 'Almost nothing done', Paragraph: 'You ordered 20% of the fridge', emoji: '⛔' },
     END_0: { Heading: 'Ghost', Paragraph: 'You ordered 0% of the fridge', emoji: '👻' },
-    POTATO: { Heading: 'POTATO', Paragraph: 'High in carps', emoji: '🍠' },
+    POTATO: { Heading: 'POTATO', Paragraph: 'High in carbs', emoji: '🍠' },
     CRAP: { Heading: 'OH CRAP', Paragraph: 'Shit just hit the fan!', emoji: '💩' },
     SEC_30: { Heading: 'Eye relief', Paragraph: 'You have avoided netflix for 30 seconds', emoji: '👀' },
     SEC_60: { Heading: 'No need to pee', Paragraph: '60 seconds without a pee break!', emoji: '🚽' },
