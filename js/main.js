@@ -94,7 +94,10 @@ function calculateScore() {
             score++;
         }
     });
-
+    console.log('before ',before);
+    console.log('after ',after);
+    console.log('SCORE ',score);
+    
     if (score >= 9) {
         createAchievementDiv(achievement.END_100);
     } else if (score >= 8) {
