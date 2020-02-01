@@ -17,8 +17,10 @@ function init() {
         Door1: new Audio('sounds/Door_1.ogg'),
         Door2: new Audio('sounds/Door_2.ogg'),
         Door3: new Audio('sounds/Door_3.ogg'),
-        WOWCROWD: new Audio('sounds/437645__dersuperanton__crowd-wow-surprise-people.wav')
-
+        WOWCROWD: new Audio('sounds/437645__dersuperanton__crowd-wow-surprise-people.wav'),
+        WOOSH: new Audio('sounds/60013__qubodup__whoosh (1).flac'),
+        DARKSHAKE: new Audio('sounds/475621__defragmenteur__shakingthe3.wav'),
+        
     };
 
     console.log('Sounds inittialized!');

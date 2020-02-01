@@ -35,7 +35,9 @@ function drag(ev) {
 
 function drop(ev) {
     console.log('DROP ', ev);
-    createAchievementDiv(achievement.DRAG2)
+    createAchievementDiv(achievement.DRAG2);
+    sounds.WOOSH.play();
+    sounds.DARKSHAKE.play();
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
