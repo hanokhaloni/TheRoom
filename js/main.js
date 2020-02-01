@@ -2,15 +2,16 @@
 
 let open = true;
 let dropped = 0;
-const slots = [];
+let fridgePlaceholders = [];
+
 
 let readyForRearange = false;
 const inventoryItems = [
     { id: 1, name: 'cupcake', src: './assets/cupcake.png' },
     { id: 2, name: 'pitcher', src: './assets/pitcher.png' },
-    { id: 3, name: 'eggs', src: './assets/eggs_01.png' },
+    /* { id: 3, name: 'eggs', src: './assets/eggs_01.png' },
     { id: 4, name: 'buttermilk', src: './assets/buttermilk.png' },
-    { id: 5, name: 'mystery', src: './assets/mystery.png' },
+    { id: 5, name: 'mystery', src: './assets/mystery.png' }, */
 ]
 
 const inventoryDivItems = [];
@@ -20,36 +21,48 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
+    ev.preventDefault();
     ev.dataTransfer.setData("Text", ev.target.id);
     ev.target.style.opacity = 0.5;
 }
 
 function drop(ev) {
+    console.log('DROP ', ev);
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
-    const element = document.getElementById(invId);
-    element.style.opacity = 1;
-    ev.target.appendChild(element);
-
+    const itemElement = document.getElementById(invId);
+    const spot = ev.target;
+    // debugger;
+    itemElement.style.opacity = 1;
+    // spot.appendChild(itemElement);
     dropped++;
 
+ 
     document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
-    document.querySelector('.ready-btn').style.opacity = dropped >= 5 ? 1 : 0;
-
+    document.querySelector('.ready-btn').style.opacity = dropped >= inventoryItems.length ? 1 : 0;
 
     const invItem = inventoryItems.find(a => a.id.toString() === invId.toString())
-    const slot = slots.find(slot => slot.id.toString() === ev.target.id.toString());
+    const placeHolder = fridgePlaceholders.find(placeHolder => placeHolder.id.toString() === ev.target.id.toString());
 
-    slot.inventory = invItem;
+    placeHolder.inventory = invItem;
+    
+    placeHolder.element.appendChild(itemElement);
 
-    localStorage.setItem('slots', JSON.stringify(slots));
+    if (!readyForRearange) {
+        
+        localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
+    } else {
+        dropped = 0;
+        localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
+    }
 }
 
 function getOpacity() {
     return 0;
 }
 
+enterance = false
 function readyClicked() {
 
     open = !open;
@@ -58,9 +71,11 @@ function readyClicked() {
     const fridge = document.querySelector('.refregirator');
     const fridgeImg = document.querySelector('#fridge');
 
-    if (fridge.classList.contains('bounceInRight')) {
+
+    /* if (!enterance && fridge.classList.contains('bounceInRight')) {
+        enterance = true;
         fridge.classList.remove('animated', 'bounceInRight');
-    }
+    } */
 
     dropZonesContainer.style.opacity = open ? 1 : 0;
 
@@ -76,11 +91,16 @@ function readyClicked() {
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
 
         if (readyForRearange) {
+            const messZone = document.querySelector('.mess-zone');
+            fridgePlaceholders.forEach(a => a.inventory = null);
             document.querySelector('.ready-btn').style.opacity = 0;
 
             inventoryDivItems.forEach(item => {
-                fridge.appendChild(item);
-
+                item.style.position = 'absolute';
+                const deg = Math.floor(Math.random() * 360);
+                const xx = Math.floor(Math.random() * 120);
+                item.style.transform = `translateX(${xx}px) rotate(${deg}deg)`;
+                messZone.appendChild(item);
             })
         }
     }
@@ -99,9 +119,9 @@ function init() {
     for (let i = 0; i < totalSlots; i++) {
         let element = item.cloneNode(true);
         element.id = i;
-        element.innerHTML = i;
+        // element.innerHTML = i;
         dropzone.appendChild(element);
-        slots.push({ id: i, element });
+        fridgePlaceholders.push({ id: i, element });
     }
 
     const btn = document.querySelector('.ready-btn')
@@ -129,12 +149,17 @@ function init() {
         invItem.id = item.id;
         // invItem.innerHTML = item.id;
         invItem.ondragexit = (ev) => {
+            
             ev.target.style.opacity = 1;
         }
         invItem.ondragstart = (ev) => {
-            ev.dataTransfer.setData("text", ev.target.id);
+
+            console.log('DRAG START!!!!',item.id);
+            
+            ev.dataTransfer.setData("Text", item.id);
             ev.target.style.opacity = 0.5;
         }
+
         inventoryElement.appendChild(invItem);
 
     })

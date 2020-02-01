@@ -6,7 +6,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .container {
@@ -20,7 +20,7 @@ body {
 }
 
 .ready-btn {
-    position: inherit;
+    /* position: inherit; */
     display: flex;
     margin: auto;
     margin-top: 20px;
@@ -29,6 +29,7 @@ body {
     top: 20px;
     border-radius: 8px;
     outline: none;
+
 }
 
 
@@ -46,7 +47,7 @@ body {
 
 .drop-zones-container {
     position: absolute;
-    top: 225px;
+    top: 295px;
     display: flex;
 }
 
