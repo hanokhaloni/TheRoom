@@ -1,15 +1,12 @@
-
-
 let open = true;
 let dropped = 0;
 let fridgePlaceholders = [];
-let enterance = false;
 let rearngeState;
 let needToFill;
 let readyForRearange = false;
 let spotsBeforeMess = [];
 let spotsAfterMess = [];
-
+const inventoryDivItems = [];
 const inventoryItems = [
     { id: 1, name: 'buttermilk', src: './assets/Elements/buttermilk.png' },
     { id: 2, name: 'cheese', src: './assets/Elements/cheese.png' },
@@ -21,10 +18,7 @@ const inventoryItems = [
     { id: 8, name: 'salad', src: './assets/Elements/salad.png' },
     { id: 9, name: 'salami', src: './assets/Elements/salami.png' },
     { id: 10, name: 'sandwich', src: './assets/Elements/sandwich.png' },
-
 ]
-
-const inventoryDivItems = [];
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -38,18 +32,15 @@ function drag(ev) {
 }
 
 function drop(ev) {
-    console.log('DROP ', ev);
     createAchievementDiv(achievement.DRAG2)
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
     const itemElement = document.getElementById(invId);
-    const spot = ev.target;
     const readyBtn = document.querySelector('.ready-btn')
-    // debugger;
+
     itemElement.style.opacity = 1;
     itemElement.placed = true;
-    // spot.appendChild(itemElement);
     dropped++;
 
     needToFill = Math.min(inventoryItems.length, 9)
@@ -91,25 +82,20 @@ function drop(ev) {
             spotsAfterMess = JSON.parse(JSON.stringify(fridgePlaceholders));
         }
     }
-
 }
 
 function calculateScore() {
-    console.log('calculateScore FINAL!!!!!!!');
     document.querySelector('.ready-btn').style.opacity = 0;
 
     const before = spotsBeforeMess.map(a => a.inventory ? a.inventory.id : -1);
     const after = spotsAfterMess.map(a => a.inventory ? a.inventory.id : -1);
 
     let score = 0;
-    before.forEach((a, index) => {
+    before.filter(a => a !== -1).forEach((a, index) => {
         if (a === after[index]) {
-            if (a > -1) { score++; }
+            score++;
         }
     });
-    console.log('before = ', before);
-    console.log('after = ', after);
-    console.log('SCORE = ', score);
 
     if (score >= 9) {
         createAchievementDiv(achievement.END_100);
@@ -130,39 +116,24 @@ function calculateScore() {
     }, 5000);
 }
 
-function getOpacity() {
-    return 0;
-}
-
 function readyClicked() {
     createAchievementDiv(achievement.READABILITY);
     createAchievementDiv(achievement.READY);
 
     open = !open;
-    // const str = open ? 'open' : 'close'
-    const dropZonesContainer = document.querySelector('.drop-zones-container');
-    const fridge = document.querySelector('.refregirator');
-    const fridgeImg = document.querySelector('#fridge');
 
-    /* if (!enterance && fridge.classList.contains('bounceInRight')) {
-        enterance = true;
-        fridge.classList.remove('animated', 'bounceInRight');
-    } */
+    const dropZonesContainer = document.querySelector('.drop-zones-container');
+    const fridgeImg = document.querySelector('#fridge');
 
     if (!open) {
         document.querySelector(".assets").style.visibility = "hidden";
         createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
-        // fridgeImg.style['margin-left'] = '0';
+
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         const darkDiv = document.querySelector('.dark');
         darkDiv.style.visibility = 'visible';
 
-        // document.querySelector('.container').appendChild(darkDiv);
-
-        /* setTimeout(() => {
-            darkDiv.parentNode.removeChild(darkDiv);
-        }, 2000); */
         dropZonesContainer.style.opacity = 0;
         document.querySelector('.ready-btn').innerHTML = "STOP";
         readyForRearange = true;
@@ -170,7 +141,6 @@ function readyClicked() {
     } else {
         createAchievementDiv(achievement.STAGE3);
         sounds.Door1.play();
-        // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
         fridgeImg.classList.add('animated', 'bounce');
         const darkDiv = document.querySelector('.dark');
@@ -190,7 +160,6 @@ function readyClicked() {
                     item.style.transform = `translateX(${xx}px) rotate(${deg}deg)`;
                     messZone.appendChild(item);
                 }
-
             })
         }
         setTimeout(() => {
@@ -198,27 +167,15 @@ function readyClicked() {
             dropZonesContainer.style.opacity = 1;
 
         }, 1000);
-
     }
-
-    // fridgeImg.src = open ? './assets/fridge-open.png' : './assets/fridge-close.png';
 }
-
-
-/* window.onbeforeunload = function (e) {
-    createAchievementDiv(achievement.FIXER);
-}; */
 
 function WhichButton(event) {
     if (event.button == 0) {
         createAchievementDiv(achievement.LEFTCLICK);
-    }
-
-    else if (event.button == 2) {
+    } else if (event.button == 2) {
         createAchievementDiv(achievement.RIGHTCLICK);
-    }
-
-    else if (event.button == 1) {
+    } else if (event.button == 1) {
         createAchievementDiv(achievement.MIDDLECLICK);
     }
 }
@@ -230,12 +187,9 @@ function init() {
         createAchievementDiv(achievement.FIXER);
     }, 500);
 
-
     setTimeout(() => {
         createAchievementDiv(achievement.READABILITY);
     }, 2000);
-
-
 
     const dropzone = document.querySelector('#dropzone');
     const item = document.getElementById('dpz-item');
@@ -244,19 +198,12 @@ function init() {
     for (let i = 0; i < totalSlots; i++) {
         let element = item.cloneNode(true);
         element.id = i;
-        // element.innerHTML = i;
         dropzone.appendChild(element);
         fridgePlaceholders.push({ id: i, element });
     }
 
     const btn = document.querySelector('.ready-btn')
     btn.style.opacity = 0;
-    /*  const dropzone2 = document.querySelector('#dropzone2');
-     for (let i = 0; i < 9; i++) {
-         let element = item.cloneNode(true);
-         dropzone2.appendChild(element);
-     } */
-
     item.parentNode.removeChild(item);
 
     const inventoryElement = document.querySelector('.assets');
@@ -272,7 +219,6 @@ function init() {
         invItem.className = "inventory-item";
         invItem.draggable = true;
         invItem.id = item.id;
-        // invItem.innerHTML = item.id;
         invItem.ondragexit = (ev) => {
 
             ev.target.style.opacity = 1;
@@ -283,9 +229,7 @@ function init() {
         }
 
         inventoryElement.appendChild(invItem);
-
     })
-
 }
 
 
