@@ -7,11 +7,8 @@ let enterance = false;
 let rearngeState;
 let needToFill;
 let readyForRearange = false;
-
-
 let spotsBeforeMess = [];
 let spotsAfterMess = [];
-
 
 const inventoryItems = [
     { id: 1, name: 'buttermilk', src: './assets/Elements/buttermilk.png' },
@@ -125,13 +122,13 @@ function calculateScore() {
         createAchievementDiv(achievement.END_30);
     } else if (score >= 1) {
         createAchievementDiv(achievement.END_20);
-    }  else {
+    } else {
         createAchievementDiv(achievement.END_0);
     }
-    
+
     setTimeout(() => {
         createAchievementCertificate()
-    }, 2000);
+    }, 5000);
 }
 
 function getOpacity() {
@@ -154,6 +151,7 @@ function readyClicked() {
     } */
 
     if (!open) {
+        document.querySelector(".assets").style.visibility = "hidden";
         createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
         sounds.DARKSHAKE.play();
@@ -210,9 +208,9 @@ function readyClicked() {
 }
 
 
-window.onbeforeunload = function (e) {
+/* window.onbeforeunload = function (e) {
     createAchievementDiv(achievement.FIXER);
-};
+}; */
 
 function WhichButton(event) {
     if (event.button == 0) {
@@ -231,7 +229,16 @@ function WhichButton(event) {
 function init() {
     setTimeoutAchievements();
 
-    createAchievementDiv(achievement.READABILITY);
+    setTimeout(() => {
+        createAchievementDiv(achievement.FIXER);
+    }, 500);
+
+
+    setTimeout(() => {
+        createAchievementDiv(achievement.READABILITY);
+    }, 2000);
+
+
 
     const dropzone = document.querySelector('#dropzone');
     const item = document.getElementById('dpz-item');
