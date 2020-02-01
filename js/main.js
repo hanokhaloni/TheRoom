@@ -38,6 +38,7 @@ function drop(ev) {
     createAchievementDiv(achievement.DRAG2);
     sounds.WOOSH.play();
     sounds.DARKSHAKE.play();
+    
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
@@ -49,33 +50,36 @@ function drop(ev) {
     // spot.appendChild(itemElement);
     dropped++;
 
-    document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
-    document.querySelector('.ready-btn').style.opacity = dropped >= 9 ? 1 : 0;
 
+    document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
+    document.querySelector('.ready-btn').style.opacity = dropped >= 9 ? 1 : 0; 
+    
     const invItem = inventoryItems.find(a => a.id.toString() === invId.toString())
     const placeHolder = fridgePlaceholders.find(placeHolder => placeHolder.id.toString() === ev.target.id.toString());
 
     if (placeHolder && placeHolder.element) {
-        placeHolder.inventory = invItem;
-        placeHolder.element.appendChild(itemElement);
+            placeHolder.inventory = invItem;
 
-        if (!readyForRearange) {
+    placeHolder.element.appendChild(itemElement);
 
-            localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
-        } else {
-            dropped = 0;
-            itemElement.style.transform = `translateX(${0}px) rotate(${0}deg)`;
-            localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
-        }
+    if (!readyForRearange) {
+
+        localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
+    } else {
+        dropped = 0;
+        itemElement.style.transform = `translateX(${0}px) rotate(${0}deg)`;
+        localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
     }
+}
 
 }
+
 
 function getOpacity() {
     return 0;
 }
 
-
+enterance = false
 function readyClicked() {
     createAchievementDiv(achievement.READABILITY);
     createAchievementDiv(achievement.READY);
@@ -86,14 +90,18 @@ function readyClicked() {
     const fridge = document.querySelector('.refregirator');
     const fridgeImg = document.querySelector('#fridge');
 
+
     /* if (!enterance && fridge.classList.contains('bounceInRight')) {
         enterance = true;
         fridge.classList.remove('animated', 'bounceInRight');
     } */
 
+    dropZonesContainer.style.opacity = open ? 1 : 0;
+
     if (!open) {
         createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
+        sounds.DARKSHAKE.play();
         // fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         const darkDiv = document.querySelector('.dark');
@@ -111,14 +119,12 @@ function readyClicked() {
     } else {
         createAchievementDiv(achievement.STAGE3);
         sounds.Door1.play();
+        sounds.DARKSHAKE.pause();
         // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
         fridgeImg.classList.add('animated', 'bounce');
         const darkDiv = document.querySelector('.dark');
         darkDiv.style.visibility = 'hidden';
-
-        fridgePlaceholders.forEach(a => a.inventory = null);
-        document.querySelector('.ready-btn').style.opacity = 0;
 
         if (readyForRearange) {
 
@@ -140,9 +146,10 @@ function readyClicked() {
 
         }, 1000);
 
+        
     }
 
-    // fridgeImg.src = open ? './assets/fridge-open.png' : './assets/fridge-close.png';
+    //fridgeImg.src = open ? './assets/openedFridge_02.png' : './assets/closedFridge_02.png';
 }
 
 
@@ -210,6 +217,9 @@ function init() {
             ev.target.style.opacity = 1;
         }
         invItem.ondragstart = (ev) => {
+
+            console.log('DRAG START!!!!', item.id);
+
             ev.dataTransfer.setData("Text", item.id);
             ev.target.style.opacity = 0.5;
         }
