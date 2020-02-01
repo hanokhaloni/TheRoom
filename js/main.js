@@ -3,15 +3,21 @@
 let open = true;
 let dropped = 0;
 let fridgePlaceholders = [];
-
+let enterance = false;
 
 let readyForRearange = false;
 const inventoryItems = [
-    { id: 1, name: 'cupcake', src: './assets/cupcake.png' },
-    { id: 2, name: 'pitcher', src: './assets/pitcher.png' },
-    /* { id: 3, name: 'eggs', src: './assets/eggs_01.png' },
-    { id: 4, name: 'buttermilk', src: './assets/buttermilk.png' },
-    { id: 5, name: 'mystery', src: './assets/mystery.png' }, */
+    { id: 1, name: 'buttermilk', src: './assets/Elements/buttermilk.png' },
+    { id: 2, name: 'cheese', src: './assets/Elements/cheese.png' },
+    { id: 3, name: 'cupcake', src: './assets/Elements/cupcake.png' },
+    { id: 4, name: 'eggs_01', src: './assets/Elements/eggs_01.png' },
+    { id: 5, name: 'mouse', src: './assets/Elements/mouse.png' },
+    { id: 6, name: 'mystery', src: './assets/Elements/mystery.png' },
+    { id: 7, name: 'pitcher', src: './assets/Elements/pitcher.png' },
+    { id: 8, name: 'salad', src: './assets/Elements/salad.png' },
+    { id: 9, name: 'salami', src: './assets/Elements/salami.png' },
+    { id: 10, name: 'sandwich', src: './assets/Elements/sandwich.png' },
+
 ]
 
 const inventoryDivItems = [];
@@ -35,34 +41,37 @@ function drop(ev) {
     const spot = ev.target;
     // debugger;
     itemElement.style.opacity = 1;
+    itemElement.placed = true;
     // spot.appendChild(itemElement);
     dropped++;
 
- 
     document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
-    document.querySelector('.ready-btn').style.opacity = dropped >= inventoryItems.length ? 1 : 0;
+    document.querySelector('.ready-btn').style.opacity = dropped >= 9 ? 1 : 0;
 
     const invItem = inventoryItems.find(a => a.id.toString() === invId.toString())
     const placeHolder = fridgePlaceholders.find(placeHolder => placeHolder.id.toString() === ev.target.id.toString());
 
-    placeHolder.inventory = invItem;
-    
-    placeHolder.element.appendChild(itemElement);
+    if (placeHolder && placeHolder.element) {
+        placeHolder.inventory = invItem;
+        placeHolder.element.appendChild(itemElement);
 
-    if (!readyForRearange) {
-        
-        localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
-    } else {
-        dropped = 0;
-        localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
+        if (!readyForRearange) {
+
+            localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
+        } else {
+            dropped = 0;
+            itemElement.style.transform = `translateX(${0}px) rotate(${0}deg)`;
+            localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
+        }
     }
+
 }
 
 function getOpacity() {
     return 0;
 }
 
-enterance = false
+
 function readyClicked() {
 
     open = !open;
@@ -71,39 +80,59 @@ function readyClicked() {
     const fridge = document.querySelector('.refregirator');
     const fridgeImg = document.querySelector('#fridge');
 
-
     /* if (!enterance && fridge.classList.contains('bounceInRight')) {
         enterance = true;
         fridge.classList.remove('animated', 'bounceInRight');
     } */
 
-    dropZonesContainer.style.opacity = open ? 1 : 0;
-
     if (!open) {
-        fridgeImg.style['margin-left'] = '0';
+        // fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
+        const darkDiv = document.querySelector('.dark');
+        darkDiv.style.visibility = 'visible';
+
+        // document.querySelector('.container').appendChild(darkDiv);
+
+        /* setTimeout(() => {
+            darkDiv.parentNode.removeChild(darkDiv);
+        }, 2000); */
+        dropZonesContainer.style.opacity = 0;
         document.querySelector('.ready-btn').innerHTML = "STOP";
         readyForRearange = true;
+        fridgeImg.src = './assets/fridge-close.png';
     } else {
-        fridgeImg.style['margin-left'] = '200px';
+        // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
+        fridgeImg.classList.add('animated', 'bounce');
+        const darkDiv = document.querySelector('.dark');
+        darkDiv.style.visibility = 'hidden';
+
+        fridgePlaceholders.forEach(a => a.inventory = null);
+        document.querySelector('.ready-btn').style.opacity = 0;
 
         if (readyForRearange) {
-            const messZone = document.querySelector('.mess-zone');
-            fridgePlaceholders.forEach(a => a.inventory = null);
-            document.querySelector('.ready-btn').style.opacity = 0;
 
+            const messZone = document.querySelector('.mess-zone');
             inventoryDivItems.forEach(item => {
-                item.style.position = 'absolute';
-                const deg = Math.floor(Math.random() * 360);
-                const xx = Math.floor(Math.random() * 120);
-                item.style.transform = `translateX(${xx}px) rotate(${deg}deg)`;
-                messZone.appendChild(item);
+                if (item.placed) {
+                    item.style.position = 'absolute';
+                    const deg = Math.floor(Math.random() * 360);
+                    const xx = Math.floor(Math.random() * 120);
+                    item.style.transform = `translateX(${xx}px) rotate(${deg}deg)`;
+                    messZone.appendChild(item);
+                }
+
             })
         }
+        setTimeout(() => {
+            fridgeImg.src = './assets/fridge-open.png';
+            dropZonesContainer.style.opacity = 1;
+
+        }, 1000);
+
     }
 
-    fridgeImg.src = open ? './assets/openedFridge_02.png' : './assets/closedFridge_02.png';
+    // fridgeImg.src = open ? './assets/fridge-open.png' : './assets/fridge-close.png';
 }
 
 function init() {
@@ -112,7 +141,7 @@ function init() {
 
     const dropzone = document.querySelector('#dropzone');
     const item = document.getElementById('dpz-item');
-    const totalSlots = 15;
+    const totalSlots = 9;
 
     for (let i = 0; i < totalSlots; i++) {
         let element = item.cloneNode(true);
@@ -139,7 +168,7 @@ function init() {
 
         inventoryDivItems.push(invItem);
         img.src = item.src;
-        img.height = 60;
+        img.height = 90;
         img.style.pointerEvents = 'none';
         invItem.appendChild(img);
         invItem.className = "inventory-item";
@@ -147,13 +176,10 @@ function init() {
         invItem.id = item.id;
         // invItem.innerHTML = item.id;
         invItem.ondragexit = (ev) => {
-            
+
             ev.target.style.opacity = 1;
         }
         invItem.ondragstart = (ev) => {
-
-            console.log('DRAG START!!!!',item.id);
-            
             ev.dataTransfer.setData("Text", item.id);
             ev.target.style.opacity = 0.5;
         }

@@ -19,6 +19,15 @@ body {
     
 }
 
+.dark {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.8;
+    z-index: 1000;
+}
+
 .ready-btn {
     /* position: inherit; */
     display: flex;
@@ -43,6 +52,7 @@ body {
     border: 2px solid #8675ad;
     display: grid;
     grid-gap: 5px;
+    grid-template-columns: 50% 50%;
 }
 
 .drop-zones-container {
@@ -57,12 +67,12 @@ body {
     /* right: 30px; */
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(3, 33%);
     grid-template-rows: 20% 20% 20%;
     grid-gap: 1px;
     /* justify-content: center; */
-    width: 200px;
-    height: 400px;
+    width: 250px;
+    height: 460px;
     /* margin-left: -100px; */
     
     /* left: 100px; */

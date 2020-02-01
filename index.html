@@ -24,12 +24,11 @@
 
     <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Get Achievement!!</button>
     <div id="acheivementPlaceholder"></div>
-
+    
+    <div style="visibility:hidden" class="dark animated flash infinite"></div>
     <div class="container">
 
-        <div style="position: absolute;z-index:9999">
-            <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
-        </div>
+            
 
         <div class="assets ">
             <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
@@ -44,14 +43,17 @@
         </div>
 
         <div class="refregirator">
-
-            <img id="fridge" src="./assets/openedFridge_02.png" alt="" style="margin-left: 200px">
+                <div style="position: absolute;z-index:9999">
+                        <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
+                    </div>
+            <img id="fridge" src="./assets/fridge-open.png" alt="" style="margin-left: 200px">
 
             <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
             <div class="drop-zones-container">
+                <div class="mess-zone" style="position: absolute; bottom: 200px;z-index:9"></div>
                 <div id="dropzone" class="drop-zone"></div>
-                <div class="mess-zone" style="position: absolute; bottom: 100px;z-index:99"></div>
+
             </div>
 
         </div>
