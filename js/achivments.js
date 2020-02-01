@@ -76,7 +76,6 @@ function removeAchievement() {
     acheivementPlaceholder.parentElement.removeChild(acheivementPlaceholder);
 }
 
-
 function createAchievementDiv(achievement) {
 
     const curachievement = givenAchivements.find(a => a.Heading === achievement.Heading);
@@ -104,6 +103,7 @@ function createAchievementDiv(achievement) {
 }
 
 function createAchievementCertificate() {
+    stopTimeoutAchievements();
     var certificate = '';
     certificate += '<div class="modal-window fadeInDownBig animated" onclick="removeAchievement()">';
     certificate += '<h1> For player X </h1>';
