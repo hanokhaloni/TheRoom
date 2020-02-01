@@ -42,7 +42,8 @@ function drag(ev) {
 
 function drop(ev) {
     console.log('DROP ', ev);
-    createAchievementDiv(achievement.DRAG2)
+    createAchievementDiv(achievement.DRAG2);
+    sounds.WOOSH.play();
 
     ev.preventDefault();
     const invId = ev.dataTransfer.getData("Text");
@@ -155,6 +156,7 @@ function readyClicked() {
     if (!open) {
         createAchievementDiv(achievement.STAGE2);
         sounds.Door3.play();
+        sounds.DARKSHAKE.play();
         // fridgeImg.style['margin-left'] = '0';
         fridgeImg.classList.add('animated', 'infinite', 'shake', 'delay-500ms');
         const darkDiv = document.querySelector('.dark');
@@ -172,6 +174,7 @@ function readyClicked() {
     } else {
         createAchievementDiv(achievement.STAGE3);
         sounds.Door1.play();
+        sounds.DARKSHAKE.pause();
         // fridgeImg.style['margin-left'] = '200px';
         fridgeImg.classList.remove('animated', 'infinite', 'shake', 'delay-500ms');
         fridgeImg.classList.add('animated', 'bounce');
