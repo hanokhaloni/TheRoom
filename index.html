@@ -16,16 +16,21 @@
 
 <body onload="init()">
 
-    <div class="pyro" style="z-index:9999;position:absolute">
+    <!-- <div class="pyro" style="z-index:9999;position:absolute">
         <div class="before"></div>
         <div class="after"></div>
-    </div>
-    
+    </div> -->
+
 
     <button style="position: absolute;z-index:999" onclick="setNextAchievement()">Get Achievement!!</button>
     <div id="acheivementPlaceholder"></div>
 
     <div class="container">
+
+        <div style="position: absolute;z-index:9999">
+            <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
+        </div>
+
         <div class="assets ">
             <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
             <img id="drag1" class="inventory-item" src="./assets/pitcher.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
@@ -38,34 +43,20 @@
             <h2>Place all the groceries in the fridge </h2>
         </div>
 
-        <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
-        <!-- <div class="room"> -->
-
-
-
-        <div class="refregirator animated bounceInRight ">
+        <div class="refregirator">
 
             <img id="fridge" src="./assets/openedFridge_02.png" alt="" style="margin-left: 200px">
 
-            <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)">
-
-            </div>
+            <div id="dpz-item" class="item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
             <div class="drop-zones-container">
-                <div id="dropzone" class="drop-zone">
-
-                </div>
-
-                <!--  <div id="dropzone2" style="transform: rotate(25deg) skewX(50deg) translate(50px, -50px);"
-                    class="drop-zone">
-
-                </div> -->
+                <div id="dropzone" class="drop-zone"></div>
+                <div class="mess-zone" style="position: absolute; bottom: 100px;z-index:99"></div>
             </div>
 
         </div>
-        <!-- </div> -->
+    </div>
 
-        <!-- <canvas id="main-canvas" class="canvas"></canvas> -->
     </div>
 </body>
 
