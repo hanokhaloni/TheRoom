@@ -108,14 +108,15 @@ function createAchievementCertificate() {
     stopTimeoutAchievements();
     var certificate = '';
     certificate += '<div class="modal-window fadeInDownBig animated" onclick="removeAchievement()">';
-    certificate += '<h1> For player X </h1>';
-    certificate += '<h2> Successfully completed a game </h2>';
+    certificate += '<h1> A Certificate Of Completion</h1>';
+    certificate += '<h2> Is proudly presented to player x </h2>';
     certificate += '<h2> With the following achievements: </h2>';
     certificate += '<ul style="columns: 2">';
     givenAchivements.forEach(element => {
         certificate += `<li>${element.emoji} - ${element.Heading}</li>`;
     });
     certificate += '</ul>';
+    certificate += `<h3> You received ${givenAchivements.length} of 40 achivements available </h3>`;
     certificate += '</div>';
     const acheivementPlaceholder = document.getElementById("acheivementPlaceholder");
     sounds.WOWCROWD.play();

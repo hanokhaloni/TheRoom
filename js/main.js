@@ -129,8 +129,8 @@ function calculateScore() {
     }
     
     setTimeout(() => {
-        createAchievementCertificate();
-    }, 4000);
+        createAchievementCertificate()
+    }, 2000);
 }
 
 function getOpacity() {
