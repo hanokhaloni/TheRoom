@@ -94,8 +94,8 @@ function createAchievementDiv(achievement) {
 
     const newAchievementElement =
         `<div class="modal-window ${animation} animated" onclick="removeAchievement()">
-        <h1>${achievement.Heading} Achievement!</h1>
-        <p>${greet} ${achievement.Paragraph}</p>
+        <h1 style="font-size: 34px;">${achievement.Heading} Achievement!</h1>
+        <p style="font-size: 26px;">${greet} ${achievement.Paragraph}</p>
         <div style="font-size: 10em;">${achievement.emoji}</div>
         </div>`;
 

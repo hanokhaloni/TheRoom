@@ -29,7 +29,7 @@ canvas {
 }
 
 .modal-window {
-    font-family: monospace;
+    /* font-family: monospace; */
     /* background-color: rgba(75, 52, 132, 0.48); */
     background-color: wheat;
     /* font-size: 15px; */

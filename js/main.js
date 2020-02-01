@@ -4,8 +4,15 @@ let open = true;
 let dropped = 0;
 let fridgePlaceholders = [];
 let enterance = false;
-
+let rearngeState;
+let needToFill;
 let readyForRearange = false;
+
+
+let spotsBeforeMess = [];
+let spotsAfterMess = [];
+
+
 const inventoryItems = [
     { id: 1, name: 'buttermilk', src: './assets/Elements/buttermilk.png' },
     { id: 2, name: 'cheese', src: './assets/Elements/cheese.png' },
@@ -41,14 +48,16 @@ function drop(ev) {
     const invId = ev.dataTransfer.getData("Text");
     const itemElement = document.getElementById(invId);
     const spot = ev.target;
+    const readyBtn = document.querySelector('.ready-btn')
     // debugger;
     itemElement.style.opacity = 1;
     itemElement.placed = true;
     // spot.appendChild(itemElement);
     dropped++;
 
+    needToFill = Math.min(inventoryItems.length, 9)
     document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
-    document.querySelector('.ready-btn').style.opacity = dropped >= 9 ? 1 : 0;
+    readyBtn.style.opacity = (dropped === needToFill) && !rearngeState ? 1 : 0;
 
     const invItem = inventoryItems.find(a => a.id.toString() === invId.toString())
     const placeHolder = fridgePlaceholders.find(placeHolder => placeHolder.id.toString() === ev.target.id.toString());
@@ -60,19 +69,73 @@ function drop(ev) {
         if (!readyForRearange) {
 
             localStorage.setItem('spotsBeforeMess', JSON.stringify([...fridgePlaceholders]));
+            spotsBeforeMess = JSON.parse(JSON.stringify(fridgePlaceholders));
         } else {
-            dropped = 0;
+
+            if (!rearngeState) {
+                rearngeState = true;
+                dropped = 0;
+
+            } else {
+
+
+                if (dropped >= (needToFill - 1)) {
+                    console.log('AAAEND GAA', dropped);
+                    readyBtn.style.opacity = 1;
+                    readyBtn.innerHTML = 'READY';
+                    readyBtn.onclick = () => {
+                        calculateScore();
+                    }
+                }
+            }
+
             itemElement.style.transform = `translateX(${0}px) rotate(${0}deg)`;
             localStorage.setItem('spotsAfterMess', JSON.stringify([...fridgePlaceholders]));
+            spotsAfterMess = JSON.parse(JSON.stringify(fridgePlaceholders));
         }
     }
 
 }
 
+function calculateScore() {
+    console.log('calculateScore FINAL!!!!!!!');
+    document.querySelector('.ready-btn').style.opacity = 0;
+
+    const before = spotsBeforeMess.map(a => a.inventory ? a.inventory.id : -1);
+    const after = spotsAfterMess.map(a => a.inventory ? a.inventory.id : -1);
+
+    let score = 0;
+    before.forEach((a, index) => {
+        if (a === after[index]) {
+            if (a > -1) { score++; }
+        }
+    });
+    console.log('before = ', before);
+    console.log('after = ', after);
+    console.log('SCORE = ', score);
+
+    if (score >= 9) {
+        createAchievementDiv(achievement.END_100);
+    } else if (score >= 8) {
+        createAchievementDiv(achievement.END_80);
+    } else if (score >= 5) {
+        createAchievementDiv(achievement.END_50);
+    } else if (score >= 3) {
+        createAchievementDiv(achievement.END_30);
+    } else if (score >= 1) {
+        createAchievementDiv(achievement.END_20);
+    }  else {
+        createAchievementDiv(achievement.END_0);
+    }
+    
+    setTimeout(() => {
+        createAchievementCertificate();
+    }, 4000);
+}
+
 function getOpacity() {
     return 0;
 }
-
 
 function readyClicked() {
     createAchievementDiv(achievement.READABILITY);

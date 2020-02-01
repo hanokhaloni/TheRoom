@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
 </head>
 
 <body onload="init()">
@@ -31,14 +32,12 @@
     </div>
 
 
-    <div id="acheivementPlaceholder"></div>
+    <div id="acheivementPlaceholder" style="z-index:999999"></div>
 
     <div style="visibility:hidden" class="dark animated flash infinite"></div>
     <div class="container">
 
         <div class="container" onmousedown="WhichButton(event)">
-
-
 
             <div class="assets ">
                 <!-- <img id="drag1" class="inventory-item" src="./assets/milk.png" draggable="true" alt="" height="50" ondragstart="drag(event)">
@@ -53,7 +52,8 @@
             </div>
 
             <div class="refregirator">
-                <div style="position: absolute;z-index:9999">
+               <p style="font-size: 3em;position:absolute;transform:scale(-1);margin-top: 190px;">💡</p>  
+                <div style="position: absolute;z-index:105;">
                     <button class="ready-btn" onclick="readyClicked()">REPAIR</button>
                 </div>
                 <img id="fridge" src="./assets/fridge-open.png" alt="" style="margin-left: 200px">
