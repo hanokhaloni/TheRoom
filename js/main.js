@@ -2,14 +2,15 @@
 
 let open = true;
 let dropped = 0;
+const slots = [];
 
 let readyForRearange = false;
 const inventoryItems = [
-    { id: '1', name: 'cupcake', src: './assets/cupcake.png' },
-    { id: '2', name: 'pitcher', src: './assets/pitcher.png' },
-    { id: '3', name: 'eggs', src: './assets/eggs_01.png' },
-    { id: '4', name: 'buttermilk', src: './assets/buttermilk.png' },
-    { id: '5', name: 'mystery', src: './assets/mystery.png' },
+    { id: 1, name: 'cupcake', src: './assets/cupcake.png' },
+    { id: 2, name: 'pitcher', src: './assets/pitcher.png' },
+    { id: 3, name: 'eggs', src: './assets/eggs_01.png' },
+    { id: 4, name: 'buttermilk', src: './assets/buttermilk.png' },
+    { id: 5, name: 'mystery', src: './assets/mystery.png' },
 ]
 
 const inventoryDivItems = [];
@@ -19,23 +20,30 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("Text", ev.target.id);
     ev.target.style.opacity = 0.5;
 }
 
 function drop(ev) {
+
     ev.preventDefault();
-    const data = ev.dataTransfer.getData("text");
-    const element = document.getElementById(data);
+    const invId = ev.dataTransfer.getData("Text");
+    const element = document.getElementById(invId);
     element.style.opacity = 1;
     ev.target.appendChild(element);
 
     dropped++;
 
-    document.querySelector('.instructions').style.opacity = dropped >0 ? 0 : 1;
+    document.querySelector('.instructions').style.opacity = dropped > 0 ? 0 : 1;
     document.querySelector('.ready-btn').style.opacity = dropped >= 5 ? 1 : 0;
 
-    
+
+    const invItem = inventoryItems.find(a => a.id.toString() === invId.toString())
+    const slot = slots.find(slot => slot.id.toString() === ev.target.id.toString());
+
+    slot.inventory = invItem;
+
+    localStorage.setItem('slots', JSON.stringify(slots));
 }
 
 function getOpacity() {
@@ -67,33 +75,31 @@ function readyClicked() {
 
         if (readyForRearange) {
             document.querySelector('.ready-btn').style.opacity = 0;
-            
-            inventoryDivItems.forEach(item=>{
+
+            inventoryDivItems.forEach(item => {
                 fridge.appendChild(item);
-                
+
             })
         }
     }
 
-
-
     fridgeImg.src = open ? './assets/openedFridge_02.png' : './assets/closedFridge_02.png';
-
-
 }
 
-
 function init() {
-
-    setTimeoutAchievements();
+    //TODO UNCOMMMENT!!!!!!!!!
+    // setTimeoutAchievements();
 
     const dropzone = document.querySelector('#dropzone');
-
     const item = document.getElementById('dpz-item');
     const totalSlots = 15;
+
     for (let i = 0; i < totalSlots; i++) {
         let element = item.cloneNode(true);
+        element.id = i;
+        element.innerHTML = i;
         dropzone.appendChild(element);
+        slots.push({ id: i, element });
     }
 
     const btn = document.querySelector('.ready-btn')
@@ -119,6 +125,7 @@ function init() {
         invItem.className = "inventory-item";
         invItem.draggable = true;
         invItem.id = item.id;
+        // invItem.innerHTML = item.id;
         invItem.ondragexit = (ev) => {
             ev.target.style.opacity = 1;
         }
