@@ -46,6 +46,7 @@ function setTimeoutAchievements() {
     sec30interval = setTimeout(function () { createAchievementDiv(achievement.SEC_30) }, 30000);
     sec50interval = setTimeout(function () { createAchievementDiv(achievement.SMILE) }, 50000);
     sec60interval = setTimeout(function () { createAchievementDiv(achievement.SEC_60) }, 60000);
+    sec70interval = setTimeout(function () { createAchievementDiv(achievement.POTATO) }, 70000);
     sec90interval = setTimeout(function () { createAchievementDiv(achievement.SEC_90) }, 90000);
     givenAchivements = [];
 }
@@ -55,6 +56,7 @@ function stopTimeoutAchievements() {
     clearTimeout(sec30interval);
     clearTimeout(sec50interval);
     clearTimeout(sec60interval);
+    clearTimeout(sec70interval);
     clearTimeout(sec90interval);
 
 }

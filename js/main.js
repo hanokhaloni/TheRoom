@@ -136,6 +136,7 @@ function WhichButton(event) {
 function init() {
     setTimeoutAchievements();
 
+    createAchievementDiv(achievement.READABILITY);
 
     const dropzone = document.querySelector('#dropzone');
     const item = document.getElementById('dpz-item');
