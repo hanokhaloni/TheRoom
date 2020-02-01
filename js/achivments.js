@@ -109,7 +109,7 @@ function createAchievementCertificate() {
     certificate += '<h1> For player X </h1>';
     certificate += '<h2> Successfully completed a game </h2>';
     certificate += '<h2> With the following achievements: </h2>';
-    certificate += '<ul>';
+    certificate += '<ul style="columns: 2">';
     givenAchivements.forEach(element => {
         certificate += `<li>${element.emoji} - ${element.Heading}</li>`;
     });
